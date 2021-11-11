@@ -1,1 +1,1 @@
-export const API_BASE_URL = "https://dev.threeperstep.com";
+export const API_BASE_URL = "https://api.openweathermap.org/data/2.5/";

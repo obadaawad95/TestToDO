@@ -3,14 +3,16 @@ import { persistStore, persistReducer } from "redux-persist";
 import Thunk from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 
-// import serviceReducer from "./Services/servicesSlice";
+import weatherReducer from "./weather/weather.slice";
 
 const persistConfig = {
   key: "root",
   storage,
 };
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  weather: weatherReducer,
+});
 
 const reactotron = require("../config/reactotron").default;
 const reactotronMiddleware = reactotron.createEnhancer();

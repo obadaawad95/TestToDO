@@ -11,13 +11,17 @@ import {
   CssBaseline,
   Paper,
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getWeather, selectWeather } from "../../store/weather";
 import ArchieveForm from "../../components/archievedTask/lib/ArchieveForm";
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 // import { Container, Switch, CssBaseline } from "@material-ui/core";
-export const HomePage = () => {
+export const HomePage = ({ lat, lon }) => {
   const localData = JSON.parse(localStorage.getItem("tasks"));
   const [mode, setMode] = React.useState("light");
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
+  const weatherInfo = useSelector(selectWeather);
   const [openEdit, setOpenEdit] = React.useState(false);
   const [openDialog, setDialog] = React.useState(false);
   const [openArch, setOpenArch] = React.useState(false);
@@ -32,6 +36,15 @@ export const HomePage = () => {
   const [tasks, setTasks] = React.useState(localData || []);
   const [archived, setArchived] = React.useState([]);
 
+  let reqParams = {
+    lat: lat,
+    lon: lon,
+    appid: "e1d52bfd158b679d2d6fd667d18db607",
+  };
+  React.useEffect(() => {
+    dispatch(getWeather({ params: reqParams }));
+  }, []);
+  console.log("weather", lat);
   React.useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
