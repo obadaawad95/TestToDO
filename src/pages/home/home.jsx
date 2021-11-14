@@ -33,6 +33,8 @@ export const HomePage = ({ lat, lon }) => {
   const [descE, setDescE] = React.useState(editedTask?.desc);
   const [show, setShow] = React.useState();
   const [showA, setShowA] = React.useState();
+  const [latt, setLat] = React.useState(lat);
+  const [lonn, setLon] = React.useState(lon);
   const [tasks, setTasks] = React.useState(localData || []);
   const [archived, setArchived] = React.useState([]);
 
@@ -41,13 +43,26 @@ export const HomePage = ({ lat, lon }) => {
     lon: lon,
     appid: "e1d52bfd158b679d2d6fd667d18db607",
   };
+
   React.useEffect(() => {
-    dispatch(getWeather({ params: reqParams }));
-  }, []);
-  console.log("weather", lat);
+    navigator.geolocation.getCurrentPosition(function (position) {
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+
+      dispatch(
+        getWeather({
+          lon: position.coords.latitude,
+          appid: "7956ac64be1e40e0f8bbb3aebfd4d201",
+          lat: position.coords.longitude,
+        })
+      );
+    });
+  }, [dispatch]);
+  console.log("weather", weatherInfo);
   React.useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
+  console.log("lat", lon);
   React.useEffect(() => {
     setTitleE(editedTask?.title);
     setDescE(editedTask?.desc);

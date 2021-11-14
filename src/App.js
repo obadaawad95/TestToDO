@@ -1,7 +1,7 @@
 import "./App.css";
-import React from "react";
-
-import { HomePage } from "./pages";
+import React, { Fragment } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HomePage, WeatherPage } from "./pages";
 import { Paper } from "@mui/material";
 // import TodayIcon from "@material-ui/icons/Today";
 
@@ -17,9 +17,18 @@ function App() {
     });
   }, []);
   return (
-    <Paper className="App">
-      <HomePage lat={lat} lon={lon} />
-    </Paper>
+    <Router>
+      <Fragment>
+        <Routes>
+          <Route exact path="/">
+            <Route exact path="/" element={<HomePage lat={lat} lon={lon} />} />
+          </Route>
+          <Route exact path="/weather">
+            <Route exact path="/weather" element={<WeatherPage />} />
+          </Route>
+        </Routes>
+      </Fragment>
+    </Router>
   );
 }
 

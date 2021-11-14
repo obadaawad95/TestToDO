@@ -1,7 +1,8 @@
 import api from "./api";
 
-const WEATHER = "onecall";
+const WEATHER = "weather";
 
 export const weatherApi = {
-  getWeather: ({ params }) => api.get(`${WEATHER}`, { params }),
+  getWeather: ({ lon, appid, lat }) =>
+    api.get(`${WEATHER}?lon=${lon}&appid=${appid}&lat=${lat}&units=metric`),
 };

@@ -2,6 +2,8 @@ import * as React from "react";
 import { Button, AppBar, Box, Toolbar, Typography, Badge } from "@mui/material";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { NavLink } from "react-router-dom";
+import { NONE } from "apisauce";
 
 export const Header = (props) => {
   return (
@@ -34,7 +36,12 @@ export const Header = (props) => {
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex", sm: "block" } }}>
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex", sm: "block" },
+              alignItems: "center",
+            }}
+          >
             <Button
               onClick={props.showModal}
               variant="ghost"
@@ -42,6 +49,15 @@ export const Header = (props) => {
             >
               Add Task
             </Button>
+            <Button variant="ghost">
+              <a
+                href="/weather"
+                style={{ textDecoration: "none", color: "#fff" }}
+              >
+                Weather{" "}
+              </a>
+            </Button>
+            {/* <NavLink to="/weather">Weather</NavLink> */}
           </Box>
         </Toolbar>
       </AppBar>
